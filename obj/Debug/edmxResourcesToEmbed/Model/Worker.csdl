@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="workerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="worker">
+    <Key>
+      <PropertyRef Name="WORKER_ID" />
+    </Key>
+    <Property Name="WORKER_ID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FIRST_NAME" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="LAST_NAME" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="SALARY" Type="Int32" />
+    <Property Name="JOINTNG_DATE" Type="DateTime" Precision="3" />
+    <Property Name="DEPARTMENT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="manager" Relationship="Self.FK__managers__WORKER__31EC6D26" FromRole="worker" ToRole="managers" />
+  </EntityType>
+  <EntityType Name="manager">
+    <Key>
+      <PropertyRef Name="WORKER_REF_ID" />
+    </Key>
+    <Property Name="WORKER_REF_ID" Type="Byte" Nullable="false" />
+    <Property Name="WORKER_TITLE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="AFFECTED_FROM" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="worker" Relationship="Self.FK__managers__WORKER__31EC6D26" FromRole="managers" ToRole="worker" />
+  </EntityType>
+  <Association Name="FK__managers__WORKER__31EC6D26">
+    <End Role="worker" Type="Self.worker" Multiplicity="1" />
+    <End Role="managers" Type="Self.manager" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="worker">
+        <PropertyRef Name="WORKER_ID" />
+      </Principal>
+      <Dependent Role="managers">
+        <PropertyRef Name="WORKER_REF_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="workerEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="workers" EntityType="Self.worker" />
+    <EntitySet Name="managers" EntityType="Self.manager" />
+    <AssociationSet Name="FK__managers__WORKER__31EC6D26" Association="Self.FK__managers__WORKER__31EC6D26">
+      <End Role="worker" EntitySet="workers" />
+      <End Role="managers" EntitySet="managers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,10 @@
+D:\Project\simple\GenericRepostiory\GenericRepostiory\bin\Debug\GenericRepostiory.exe.config
+D:\Project\simple\GenericRepostiory\GenericRepostiory\bin\Debug\GenericRepostiory.exe
+D:\Project\simple\GenericRepostiory\GenericRepostiory\bin\Debug\GenericRepostiory.pdb
+D:\Project\simple\GenericRepostiory\GenericRepostiory\bin\Debug\EntityFramework.dll
+D:\Project\simple\GenericRepostiory\GenericRepostiory\bin\Debug\EntityFramework.SqlServer.dll
+D:\Project\simple\GenericRepostiory\GenericRepostiory\bin\Debug\EntityFramework.xml
+D:\Project\simple\GenericRepostiory\GenericRepostiory\bin\Debug\EntityFramework.SqlServer.xml
+D:\Project\simple\GenericRepostiory\GenericRepostiory\obj\Debug\GenericRepostiory.csprojResolveAssemblyReference.cache
+D:\Project\simple\GenericRepostiory\GenericRepostiory\obj\Debug\GenericRepostiory.exe
+D:\Project\simple\GenericRepostiory\GenericRepostiory\obj\Debug\GenericRepostiory.pdb

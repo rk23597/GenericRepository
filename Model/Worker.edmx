@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="workerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'worker.dbo.managers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="managers">
+          <Key>
+            <PropertyRef Name="WORKER_REF_ID" />
+          </Key>
+          <Property Name="WORKER_REF_ID" Type="tinyint" Nullable="false" />
+          <Property Name="WORKER_TITLE" Type="varchar" MaxLength="15" />
+          <Property Name="AFFECTED_FROM" Type="datetime" />
+        </EntityType>
+        <EntityType Name="worker">
+          <Key>
+            <PropertyRef Name="WORKER_ID" />
+          </Key>
+          <Property Name="WORKER_ID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FIRST_NAME" Type="varchar" MaxLength="15" />
+          <Property Name="LAST_NAME" Type="varchar" MaxLength="15" />
+          <Property Name="SALARY" Type="int" />
+          <Property Name="JOINTNG_DATE" Type="datetime" />
+          <Property Name="DEPARTMENT" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK__managers__WORKER__31EC6D26">
+          <End Role="worker" Type="Self.worker" Multiplicity="1" />
+          <End Role="managers" Type="Self.managers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="worker">
+              <PropertyRef Name="WORKER_ID" />
+            </Principal>
+            <Dependent Role="managers">
+              <PropertyRef Name="WORKER_REF_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="workerModelStoreContainer">
+          <EntitySet Name="worker" EntityType="Self.worker" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="managers" EntityType="Self.managers" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [managers].[WORKER_REF_ID] AS [WORKER_REF_ID], 
+    [managers].[WORKER_TITLE] AS [WORKER_TITLE], 
+    [managers].[AFFECTED_FROM] AS [AFFECTED_FROM]
+    FROM [dbo].[managers] AS [managers]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__managers__WORKER__31EC6D26" Association="Self.FK__managers__WORKER__31EC6D26">
+            <End Role="worker" EntitySet="worker" />
+            <End Role="managers" EntitySet="managers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="workerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="worker">
+          <Key>
+            <PropertyRef Name="WORKER_ID" />
+          </Key>
+          <Property Name="WORKER_ID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FIRST_NAME" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="LAST_NAME" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SALARY" Type="Int32" />
+          <Property Name="JOINTNG_DATE" Type="DateTime" Precision="3" />
+          <Property Name="DEPARTMENT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="manager" Relationship="Self.FK__managers__WORKER__31EC6D26" FromRole="worker" ToRole="managers" />
+        </EntityType>
+        <EntityType Name="manager">
+          <Key>
+            <PropertyRef Name="WORKER_REF_ID" />
+          </Key>
+          <Property Name="WORKER_REF_ID" Type="Byte" Nullable="false" />
+          <Property Name="WORKER_TITLE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="AFFECTED_FROM" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="worker" Relationship="Self.FK__managers__WORKER__31EC6D26" FromRole="managers" ToRole="worker" />
+        </EntityType>
+        <Association Name="FK__managers__WORKER__31EC6D26">
+          <End Role="worker" Type="Self.worker" Multiplicity="1" />
+          <End Role="managers" Type="Self.manager" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="worker">
+              <PropertyRef Name="WORKER_ID" />
+            </Principal>
+            <Dependent Role="managers">
+              <PropertyRef Name="WORKER_REF_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="workerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="workers" EntityType="Self.worker" />
+          <EntitySet Name="managers" EntityType="Self.manager" />
+          <AssociationSet Name="FK__managers__WORKER__31EC6D26" Association="Self.FK__managers__WORKER__31EC6D26">
+            <End Role="worker" EntitySet="workers" />
+            <End Role="managers" EntitySet="managers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="workerModelStoreContainer" CdmEntityContainer="workerEntities">
+          <EntitySetMapping Name="workers">
+            <EntityTypeMapping TypeName="workerModel.worker">
+              <MappingFragment StoreEntitySet="worker">
+                <ScalarProperty Name="WORKER_ID" ColumnName="WORKER_ID" />
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="SALARY" ColumnName="SALARY" />
+                <ScalarProperty Name="JOINTNG_DATE" ColumnName="JOINTNG_DATE" />
+                <ScalarProperty Name="DEPARTMENT" ColumnName="DEPARTMENT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="managers">
+            <EntityTypeMapping TypeName="workerModel.manager">
+              <MappingFragment StoreEntitySet="managers">
+                <ScalarProperty Name="WORKER_REF_ID" ColumnName="WORKER_REF_ID" />
+                <ScalarProperty Name="WORKER_TITLE" ColumnName="WORKER_TITLE" />
+                <ScalarProperty Name="AFFECTED_FROM" ColumnName="AFFECTED_FROM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

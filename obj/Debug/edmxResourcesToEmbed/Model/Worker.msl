@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="workerModelStoreContainer" CdmEntityContainer="workerEntities">
+    <EntitySetMapping Name="workers">
+      <EntityTypeMapping TypeName="workerModel.worker">
+        <MappingFragment StoreEntitySet="worker">
+          <ScalarProperty Name="WORKER_ID" ColumnName="WORKER_ID" />
+          <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+          <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+          <ScalarProperty Name="SALARY" ColumnName="SALARY" />
+          <ScalarProperty Name="JOINTNG_DATE" ColumnName="JOINTNG_DATE" />
+          <ScalarProperty Name="DEPARTMENT" ColumnName="DEPARTMENT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="managers">
+      <EntityTypeMapping TypeName="workerModel.manager">
+        <MappingFragment StoreEntitySet="managers">
+          <ScalarProperty Name="WORKER_REF_ID" ColumnName="WORKER_REF_ID" />
+          <ScalarProperty Name="WORKER_TITLE" ColumnName="WORKER_TITLE" />
+          <ScalarProperty Name="AFFECTED_FROM" ColumnName="AFFECTED_FROM" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
